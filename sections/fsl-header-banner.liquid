@@ -1,0 +1,140 @@
+
+<section
+id="hero-split-{{ section.id }}"
+class="hero-split hero-split-{{ section.id }}"
+>
+    <div class="hero-split__inner">
+        <div class="hero-split__media">
+            <img
+            class="hero-split__img"
+            src="{{ section.settings.image | image_url: width:1200 }}"
+            alt="{{ section.settings.title }}"
+            loading="lazy"
+            >
+        </div>
+        <div class="hero-split__content">
+            <h2 class="hero-split__title">
+                {{ section.settings.title }}
+            </h2>
+            <p class="hero-split__subtitle">{{ section.settings.subtitle }}</p>
+            <a class="hero-split__btn"
+            href="{{ section.settings.btn_link }}"
+            >
+               {{ section.settings.btn_label }}      
+            </a>
+        </div>
+    </div>
+    <style>
+        .hero-split-{{ section.id }}{
+            --bg: {{ section.settings.bg | default:"#d8be8c" }};
+        }
+        .header-banner{
+            background: #d8be8c;
+        }
+         .hero-split-{{ section.id }} .hero-split__inner{
+                display: grid;
+            grid-template-columns: 40% 60%;
+            align-items: center;
+            gap: 35px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .hero-split-{{ section.id }} .hero-split__media{
+                position: relative;
+                justify-self: center;
+                padding-top: 4rem;
+
+        }
+        .hero-split-{{ section.id }} .hero-split__img{
+            display: block;
+            /* width: 40rem; */
+            height: auto;
+        }
+        .hero-split-{{ section.id }} .hero-split__content{
+            text-align: left;
+            justify-self: left;
+            max-width: 700px;
+        }
+        .hero-split-{{ section.id }} .hero-split__title{
+                margin: 0;
+                margin-bottom: 30px;
+                font-size: 77px;
+                font-weight: 400;
+                font-family: 'Playfair Display';
+                line-height: 100%;
+                color: #000000;
+        }
+        .hero-split-{{ section.id }} .hero-split__subtitle{
+                margin: 0;
+                margin-bottom: 25px;
+                text-transform: uppercase;
+                color: #000000;
+                font-weight: 400;
+                font-family: 'Cambay';
+                line-height: 100%;
+                color: #000000;
+                font-size: 28px;
+        }
+        .hero-split-{{ section.id }} .hero-split__btn{
+                display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 400;
+            font-family: 'Cambay';
+            line-height: 100%;
+            color: #ffffff;
+            background: transparent;
+            border: 2px solid #ffffff;
+        }
+
+
+    </style>
+</section>
+
+{% schema %}
+{
+  "name": "FSL Header banner",
+  "class":"header-banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background Color",
+      "default":"#d8be8c"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "title",
+      "default":"Elegant Developers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default":"ONLY WORKING AT FSL"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default":"CONTACT US"
+    },
+  ],
+  "presets":[{"name":"FSL Header banner"}]
+}
+{% endschema %}

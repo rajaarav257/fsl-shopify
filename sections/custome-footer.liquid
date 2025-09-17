@@ -1,0 +1,39 @@
+
+<footer class="custom-footer">
+    <div class="footer-container">
+        <p class="footer-title">{{ section.settings.heading | escape }}</p>
+    </div>
+    <style>
+        #shopify-section-{{ section.id }} {
+            background: #000000;
+        }
+        #shopify-section-{{ section.id }} .custom-footer{
+        }
+        #shopify-section-{{ section.id }} .footer-container{
+        }
+        #shopify-section-{{ section.id }} .footer-title{
+            text-align: center;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: 400;
+            font-family: 'Playfair Display';
+            line-height: 100%;
+            color: #ffffff;
+        }
+    </style>
+</footer>
+{% schema %}
+{
+  "name": "Custom Footer",
+  "class":"Custom-Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Footer Title",
+      "default":"My Beautiful Footer"
+    },
+  ],
+  "presets":[{"name":"Custom Footer"}]
+}
+{% endschema %}
