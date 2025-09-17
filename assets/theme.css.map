@@ -1,0 +1,1 @@
+{"version":3,"file":"theme.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://fsl-shopify-challenge/./src/styles/main.scss"],"sourcesContent":["body{\n    background: #ffffff;\n}\n\n"],"names":[],"sourceRoot":""}
