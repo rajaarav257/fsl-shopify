@@ -1,0 +1,189 @@
+<section id="dyn-featured-collection-{{ section.id }}" class="dyn-featured-collection">
+    <div class="container">
+        <header class="dyn-featured-collection__header">
+            <h2 class="dyn-featured-collection__title">{{ section.settings.heading | escape }}</h2>
+            <p class="dyn-featured-collection__subtitle">{{ section.settings.subheading | escape }}</p>
+        </header>
+        {% assign limit = section.settings.products_limit | default:6 %}
+        {% assign selected_collection = collections[section.settings.collection] %}
+        <div class="dyn-grid">
+            {%  for product in selected_collection.products limit:limit %}
+                <article class="dyn-card">
+                    <a class="dyn-card__media" href="{{ product.url }}">
+                        <img
+                        class="dyn-card__img"
+                        src="{{ product.featured_image | image_url: width : 720 }}"
+                        alt="{{ product.title | escape }}"
+                        loading="lazy"
+                        >
+                    </a>
+                    <div class="dyn-card__body">
+                        <div class="dyn-card__row">
+                            <h3 class="dyn-card__title">
+                                <a class="dyn-card__href" href="{{ product.url }}">{{ product.title |escape }}</a>
+                            </h3>
+                            <span class="dyn-card__price">$ {{ product.price | money_without_currency  }}</span>
+                        </div>
+                         {% assign feature_tags = product.tags | slice: 0, 3 %}
+                         {%  if feature_tags.size > 0 %}
+                            <ul class="dyn-card__tags">
+                                {%  for tag in feature_tags  %}
+                                    <li class="dyn-card__tag">
+                                        {{ tag | escape }}
+                                    </li>
+                                {%  endfor %}
+                            </ul>
+                         {%  endif %}
+                    </div>  
+                </article>
+            {%  endfor %}
+        </div>
+
+    </div>
+    <style>
+        #dyn-featured-collection-{{ section.id }} {
+            background: #fff;
+        }
+        #dyn-featured-collection-{{ section.id }} .container{
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 5rem 10rem;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-featured-collection__header{
+        text-align: center;
+         margin-bottom: 5rem;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-featured-collection__title{
+        font-size: 40px;
+        font-weight: 400;
+        font-family: 'Playfair Display';
+        line-height: 100%;
+        color: #000000;
+        margin: 0 0 1.5rem;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-featured-collection__subtitle{
+        font-size: 20px;
+        font-weight: 100;
+        font-family: 'Domine';
+        line-height: 1.2;
+        color: #929292;
+        max-width: 800px;
+        text-align: center;
+        margin: 0 auto;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-grid{
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2.5rem;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card{
+        grid-column: span 4;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        overflow: hidden;
+        padding: 5px;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__media{
+            display: block;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__img{
+            width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__body{
+        padding: 0.7rem 0.2rem;
+        padding-bottom: 0;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__row{
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__title{
+        font-size: 18px;
+        font-weight: 300;
+        font-family: 'Roboto';
+        line-height: 100%;
+        color: #000000;
+        margin: 0;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__href{
+        text-decoration: none;
+    color: inherit;
+        }
+        
+        #dyn-featured-collection-{{ section.id }} .dyn-card__price{
+        font-size: 14px;
+    font-weight: 700;
+    font-family: 'Cambay';
+    line-height: 100%;
+    color: #4ca36f;
+    white-space: nowrap;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__tags{
+            list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0.25rem 0 0;
+        }
+        #dyn-featured-collection-{{ section.id }} .dyn-card__tag{
+        font-size: 10px;
+    font-weight: 300;
+    font-family: 'Cambay';
+    line-height: 100%;
+    color: #ffffff;
+    background: #d8be8c;
+    padding: 3px 5px;
+    border-radius: 4px;
+        }
+
+    </style>
+</section>
+
+{% schema %}
+{
+  "name": "Dynamic Collection",
+  "class": "section-collection",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Top Software Engineers"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Any Sub Heading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Max product to show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [{ "name": "Dynamic Collection" }]
+}
+{% endschema %}

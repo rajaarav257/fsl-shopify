@@ -1,0 +1,164 @@
+<section class="fsl-header" role="banner">
+    <div class="fsl-header__inner">
+        <a class="fsl-header__brand" href="{{ routes.root_url }}">
+            {% if section.settings.logo %}
+                <img
+                class="fsl-header__logo"
+                src="{{ section.settings.logo | image_url: width:240 }}"
+                alt="{{ shop.name }}"
+                loading="eager"    
+                />
+            {% else %}
+            <span class="fsl-header__brand-text">{{ shop.name }}</span>
+            {% endif %}
+        </a>
+        {%- assign nav_handle = section.settings.menu -%}
+        {%- assign nav = linklists[nav_handle] -%}
+        <nav class="fsl-header__nav">
+            <ul class="fsl-nav">
+                {%  for link in nav.links %}
+                    <li class="fsl-nav__item">
+                        <a class="fsl-nav__link{%if link.active or link.current %} is-active{% endif %}"
+                        href="{{ link.url }}"
+                        >
+                            {{ link.title | upcase }}
+                            <span class="fsl-nav__underline"></span>
+                        </a>
+                    </li>
+                {%  endfor %}
+            </ul>
+        </nav>
+        <div class="fsl-header__actions">
+            <a class="fsl-search" href="#">
+                <svg 
+                    class="fsl-search__icon"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
+                    <g clip-path="url(#clip0_5_5)">
+                    <path fill="black" d="M23.2332 21.8602L17.5212 15.9194C18.9898 14.1735 19.7945 11.9768 19.7945 9.68999C19.7945 4.34701 15.4475 0 10.1045 0C4.76156 0 0.414551 4.34701 0.414551 9.68999C0.414551 15.033 4.76156 19.38 10.1045 19.38C12.1104 19.38 14.0218 18.775 15.6561 17.6265L21.4115 23.6124C21.6521 23.8622 21.9756 24 22.3224 24C22.6505 24 22.9619 23.8749 23.1982 23.6474C23.7004 23.1641 23.7164 22.3628 23.2332 21.8602ZM10.1045 2.52782C14.0538 2.52782 17.2667 5.74069 17.2667 9.68999C17.2667 13.6393 14.0538 16.8522 10.1045 16.8522C6.15524 16.8522 2.94237 13.6393 2.94237 9.68999C2.94237 5.74069 6.15524 2.52782 10.1045 2.52782Z"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_5_5">
+                    <rect fill="white" height="24" width="24"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+            </a>
+
+        </div>
+    </div>
+</section>
+<style>
+    .section-header-custom{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .fsl-header{
+        background: #fff;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        border-bottom: 0.1px solid #ffffff;
+    }
+    .fsl-header__inner{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 150px;
+    min-height: 80px;
+    padding: 0 20px;
+    }
+    .fsl-header__logo{
+        display: block;
+    height: 35px;
+    width: auto;
+    }
+    .fsl-header__nav{
+    justify-self: start;
+    }
+    .fsl-nav{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+    .fsl-nav__link{
+        position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    text-decoration: none;
+    color: #000;
+    letter-spacing: 0;
+    font-size: 14px;
+    font-family: 'Cambay';
+    line-height: 100%;
+    font-weight: 400;
+    }
+    .fsl-nav__underline{
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: #000000;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: transform 0.2s ease, opacity 0.2 ease;
+            font-weight: 700;
+    }
+    .fsl-nav__link:hover .fsl-nav__underline, .fsl-nav__link.is-active .fsl-nav__underline{
+    opacity: 1;
+    transform: scaleX(1);
+    font-weight: 700;
+    cursor:"pointer";
+    }
+    .fsl-nav__link.is-active{
+        font-weight: 700;
+    }
+    .fsl-header__actions{
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    }
+    .fsl-search{
+    color: #000000;
+    text-decoration: none;
+    line-height: 0;
+    }
+    .fsl-search__icon{
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
+
+{% schema %}
+{
+  "name": "FSL Header",
+  "class": "section-header-custom",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo name",
+      "default": "Fullstack Labs"
+    }
+  ],
+  "presets": [{ "name": "FSL Header" }]
+}
+{% endschema %}

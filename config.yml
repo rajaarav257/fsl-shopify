@@ -1,0 +1,6 @@
+development:
+  password: shptka_103ecdc94a7263c460a7d771547067f9
+  theme_id: 146443763868
+  store: fullstack-challenge-kumar-raj.myshopify.com
+  ignore_files:
+    - readme.md
