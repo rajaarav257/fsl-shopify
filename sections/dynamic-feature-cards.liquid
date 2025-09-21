@@ -1,17 +1,141 @@
+
+<section id="feature-card-3-{{ section.id }}" class="feature-card-3 feature-card-3-{{ section.id }}">
+    <div class="feature-card-3__grid">
+        {%  for block in section.blocks %}
+            {% liquid
+              assign bg = block.settings.bg | default: "#f3f3f3"
+            %}
+            <article class="feature-card-3__card" style="background:{{ bg }}">
+                <img
+                class="feature-card-3__icon-bg"
+                src="{{ block.settings.icon | image_url: width:600 }}"
+                alt="{{ block.settings.title }}"
+                loading="lazy"
+                >
+                <div class="feature-card-3__text">
+                    <h3 class="feature-card-3__title">{{ block.settings.title }}</h3>
+                </div>
+                <a class="feature-card-3__subtitle" href="{{ block.settings.link }}">{{ block.settings.subtitle }}</a>
+            </article>
+        {% endfor %}
+    </div>
+    <style>
+        
+        .feature-card-section{
+            max-width: 100%;
+            margin-inline: auto;
+            padding: 5rem 10rem;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__grid{
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 35px;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__card{
+                position: relative;
+                min-height: 340px;
+                border-radius: 0;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__icon-bg{
+                opacity: 1;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 60%;
+                pointer-events: none;
+                width: 10rem;
+                height: 10rem;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 2;
+            width: 75%;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__title{
+                margin: 0;
+                font-size: 36px;
+                font-weight: 400;
+                font-family: 'Domine';
+                line-height: 100%;
+                color: #000000;
+        }
+        .feature-card-3-{{ section.id }} .feature-card-3__subtitle{
+            position: absolute;
+            bottom: 7%;
+            font-size: 18px;
+            font-weight: 400;
+            font-family: 'Cambay';
+            line-height: 100%;
+            color: #000000;
+            text-decoration: none;
+                text-transform: uppercase;
+        }
+        
+
+    </style>
+</section>
 {% schema %}
 {
-  "name": "FSL Header",
-  "class": "section-header-custom",
+  "name": "Dynamic Feature Cards",
+  "class":"feature-card-section",
   "settings": [
     {
       "type": "text",
-      "id": "title",
-      "label": "title name",
-      "default": "Fullstack Labs"
+      "id": "main_title",
+      "label": "Section title",
+      "default":"Elegant Developers"
     }
   ],
-"max_blocks": 3,
-"blocks": [],
-  "presets": [{ "name": "FSL Header" }]
+  "max_blocks": 3,
+  "blocks":[
+    {
+        "type":"card",
+        "name":"card",
+        "settings": [
+            {
+            "type": "color",
+            "id": "bg",
+            "label": "Background Color",
+            "default":"#f3f3f3"
+            },
+            {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+            },
+            {
+            "type": "text",
+            "id": "title",
+            "label": "title",
+            "default":"Elegant Developers"
+            },
+            {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle",
+            "default":"Learn more"
+            },
+            {
+            "type": "url",
+            "id": "link",
+            "label": "Card Link"
+            },
+        ]
+    }
+    
+  ],
+  "presets":[{"name":"Dynamic Feature Cards"}]
 }
 {% endschema %}
